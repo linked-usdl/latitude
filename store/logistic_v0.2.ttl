@@ -1,0 +1,347 @@
+# This
+@prefix logistics: <http://www.linked-usdl.org/ns/usdl-logistics#> .
+
+# common rdf
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> . 
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> . 
+@prefix owl: <http://www.w3.org/2002/07/owl#> . 
+
+# Dublin Core
+@prefix dcterms: <http://purl.org/dc/terms/> . 
+
+# SKOS
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> . 
+
+# GoodRelations
+@prefix gr: <http://purl.org/goodrelations/v1#> . 
+
+# usdl
+@prefix usdl: <http://www.linked-usdl.org/ns/usdl-core#> . 
+@prefix legal: <http://www.linked-usdl.org/ns/usdl-legal#> . 
+@prefix price: <http://www.linked-usdl.org/ns/usdl-pricing#> .
+@prefix sla: <http://www.linked-usdl.org/ns/usdl-sla#> . 
+@prefix sec: <http://www.linked-usdl.org/ns/usdl-sec#> .
+
+# WGS84 Pos
+
+@prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+
+# 3rd Party
+@prefix rail: <http://ontologi.es/rail/vocab#> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> . 
+
+
+## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## 
+
+### additional T-and-L-related Service Properties
+
+logistics:modeOfExecution a owl:Property ;
+        rdfs:subPropertyOf gr:qualitativeProductOrServiceProperty;
+	rdfs:label "Mode of Execution" ;
+	rdfs:comment "Defines how the servie will be executed" ;
+	rdfs:domain gr:ProductOrService ;
+	rdfs:range gr:QualitativeValue .
+	
+logistics:ExecutionMode a skos:ConceptScheme;
+        rdfs:subClassOf gr:QualitativeValue;
+	rdfs:label "Execution Mode".
+
+logistics:scheduled a skos:Concept, gr:QualitativeValue;
+	skos:topConceptOf logistics:ExecutionMode;
+        rdfs:label "Scheduled"@en;
+        rdfs:comment "has a standard route and schedule". 
+	
+logistics:onDemand a skos:Concept, gr:QualitativeValue;
+	skos:topConceptOf logistics:ExecutionMode;
+	rdfs:isDefinedBy logistics: ;
+        rdfs:label "On demand"@en ; 
+	rdfs:comment "has regions it is available" .
+
+## mode of transportation
+	
+logistics:modeOfTransportation a owl:Property ;
+        rdfs:subPropertyOf gr:qualitativeProductOrServiceProperty;
+	rdfs:label "Mode of Transportation" ;
+	rdfs:comment "Defines which mode of transportation is used by the servie" ;
+	rdfs:domain gr:ProductOrService ;
+	rdfs:range gr:QualitativeValue .
+	
+logistics:TransportationMode a skos:ConceptScheme;
+	rdfs:label "Transportation Mode Taxonomy"; 
+	rdfs:comment "..." .
+
+logistics:SeaTransport a skos:Concept, gr:QualitativeValue;
+	skos:topConceptOf logistics:TransportationMode;
+        rdfs:label "Sea Transport"@en; 
+	rdfs:comment "Transport over Sea" .
+	
+logistics:AirTransport a skos:Concept, gr:QualitativeValue;
+	skos:topConceptOf logistics:ExecutionMode;
+        rdfs:label "Air Transport"@en; 
+	rdfs:comment "Transport over Air" .
+	
+logistics:LandTransport a skos:Concept, gr:QualitativeValue;
+	skos:topConceptOf logistics:TransportationMode;
+        rdfs:label "Land Transport"@en; 
+	rdfs:comment "Transport over Land" .
+
+logistics:RoadTransport a skos:Concept, gr:QualitativeValue;
+	skos:broader logistics:LandTransport;
+	skos:topConceptOf logistics:TransportationMode;
+        rdfs:label "Road Transport"@en; 
+	rdfs:comment "Transport on Road" .
+	
+logistics:RailTransport a skos:Concept, gr:QualitativeValue;
+	skos:broader logistics:LandTransport;
+	skos:topConceptOf logistics:TransportationMode;
+        rdfs:label "Rail Transport"@en; 
+	rdfs:comment "Transport on Rail" .
+	
+## means of transportation
+	
+logistics:meansOfTransportation a owl:Property ;
+        rdfs:subPropertyOf gr:qualitativeProductOrServiceProperty;
+	rdfs:label "Means of Transportation" ;
+	rdfs:comment "Defines vehicles are used for the transport" ;
+        dcterms:subject logistics:Vehicle ;
+	rdfs:domain gr:ProductOrService ;
+	rdfs:range gr:QualitativeValue .
+	
+# Vehicle classes
+
+logistics:Vehicle a skos:ConceptScheme;
+	rdfs:label "Vehicle"; 
+	rdfs:comment "Vehicle Taxonomy" .
+	
+logistics:LandVehicle a skos:Concept, gr:QualitativeValue;
+	skos:topConceptOf logistics:Vehicle;
+	rdfs:label "Land vehicle"; 
+	rdfs:comment "..." .
+
+logistics:SeaVehicle a skos:Concept, gr:QualitativeValue;
+	skos:topConceptOf logistics:Vehicle;
+	rdfs:label "Sea vehicle"; 
+	rdfs:comment "..." .
+	
+logistics:AirVehicle a skos:Concept, gr:QualitativeValue;
+	skos:topConceptOf logistics:Vehicle;
+	rdfs:label "Air vehicle"; 
+	rdfs:comment "..." .
+
+# Land Vehicles
+
+logistics:Truck a skos:Concept, gr:QualitativeValue;
+        dcterms:subject logistics:LandVehicle;
+	skos:broader logistics:LandVehicle;
+        rdfs:label "Truck"@en; 
+	rdfs:comment "..." .
+	
+logistics:Train a skos:Concept, gr:QualitativeValue;
+	skos:broader logistics:LandVehicle;
+        rdfs:label "Train"@en; 
+	rdfs:comment "..." .
+	
+# Sea Vehicles
+
+logistics:Vessel a skos:Concept, gr:QualitativeValue;
+	skos:broader logistics:SeaVehicle;
+        rdfs:label "Vessel"@en; 
+	rdfs:comment "..." .
+			
+# Air Vehicles
+
+logistics:Airplane a skos:Concept, gr:QualitativeValue;
+	skos:broader logistics:AirVehicle;
+        rdfs:label "Airplane"@en; 
+	rdfs:comment "..." .
+	
+logistics:Helicopter a skos:Concept, gr:QualitativeValue;
+	skos:broader logistics:AirVehicle;
+        rdfs:label "Helicopter"@en; 
+	rdfs:comment "..." .
+	
+### Loads
+
+logistics:typeOfCargo a rdf:Property ;
+        rdfs:subPropertyOf gr:qualitativeProductOrServiceProperty;
+	rdfs:label "Possible Type of Cargo" ;
+	rdfs:comment "What type of cargo can be loaded by the vehicle" ;
+        dcterms:subject logistics:CargoType ;
+	rdfs:domain gr:ProductOrService ;
+	rdfs:range gr:QualitativeValue .
+	
+logistics:CargoType a skos:ConceptScheme;
+	rdfs:label "Cargo Type"; 
+	rdfs:comment "Cargo Type Taxonomy" .
+
+logistics:containerizedCargo a skos:Concept, gr:QualitativeValue;
+        rdfs:label "Containerized Cargo"@en; 
+	skos:topConceptOf logistics:CargoType;
+	rdfs:comment "Anything packed in a container" .
+	
+logistics:documentCargo a skos:Concept, gr:QualitativeValue;
+        rdfs:label "Document Cargo"@en; 
+	skos:topConceptOf logistics:CargoType;
+	rdfs:comment "All documents" .
+	
+logistics:livingAnimalsCargo a skos:Concept, gr:QualitativeValue;
+        rdfs:label "Living Animals Cargo"@en; 
+	skos:topConceptOf logistics:CargoType;
+	rdfs:comment "Living animals shipping" .
+	
+# capacity for cargo 
+
+logistics:hasCapacity a owl:Property;
+        rdfs:subPropertyOf gr:quantitativeProductOrServiceProperty;
+	rdfs:label "has Capacity of Cargo" ;
+	rdfs:comment "How many of the specified cargo type can be loaded" ;
+	rdfs:domain gr:ProductOrService ;
+	rdfs:range gr:QuantitativeValue .
+	
+## power connection
+
+logistics:hasPowerConnection a owl:Property;
+        rdfs:subPropertyOf gr:qualitativeProductOrServiceProperty;
+	rdfs:label "Power Connection Availability" ;
+	rdfs:comment "Defines if power connection is available for containers";
+        dcterms:subject logistics:YesOrNo ;
+	rdfs:domain gr:ProductOrService ;
+	rdfs:range gr:QualitativeValue .
+
+# generic yes/no values (should be in the core vocabulary
+# or should it be just an xsd:boolean?
+
+logistics:YesOrNo a skos:ConceptScheme;
+        rdfs:label "Yes or No".
+
+
+logistics:yes a gr:QualitativeValue;
+        rdfs:label "Yes";
+	skos:topConceptOf logistics:YesOrNo;
+        rdfs:comment "A generic value for 'Yes'." .
+
+logistics:no a gr:QualitativeValue;
+        rdfs:label "No";
+	skos:topConceptOf logistics:YesOrNo;
+        rdfs:comment "A generic value for 'No'." .
+
+### Route extensions
+
+logistics:hasRoute a owl:Property ;
+        rdfs:subPropertyOf gr:qualitativeProductOrServiceProperty;
+	rdfs:label "Has Route" ;
+	rdfs:comment "The route served by this service" ;
+	rdfs:domain gr:ProductOrService;
+	rdfs:range rail:Route .
+
+logistics:lastIsFirst a rdf:Property ;
+	rdfs:isDefinedBy logistics: ;
+	rdfs:label "Round trip" ;
+	rdfs:comment "if the first and the last station are equal it defines if the route will restart" ;
+	rdfs:domain rail:stations ;
+	rdfs:range xsd:boolean .
+
+logistics:t0 a rdf:Property ;
+	rdfs:isDefinedBy logistics: ;
+	rdfs:label "Start Time" ;
+	rdfs:comment "First timestamp when the tour starts" ;
+	rdfs:domain rail:Route ;
+	rdfs:range xsd:datetime .
+	
+logistics:iterationTime a rdf:Property ;
+	rdfs:isDefinedBy logistics: ;
+	rdfs:label "Iteration Time" ;
+	rdfs:comment "Time needed for one complete iteration of the tour" ;
+	rdfs:domain rail:Route ;
+	rdfs:range xsd:datetime .
+	
+logistics:t0_plus a rdf:Property ;
+	rdfs:isDefinedBy logistics: ;
+	rdfs:label "Time to Station" ;
+	rdfs:comment "Time needed from first station to this station" ;
+	rdfs:domain rail:Route ;
+	rdfs:range xsd:duration .
+	
+logistics:Terminals a rdf:Property ;
+	rdfs:label "Terminals" ;
+	rdfs:comment "The terminals the vehicle is served from" ;
+	rdfs:domain rail:Station ;
+	rdfs:range rdf:List . # list of terminals
+	
+logistics:Terminal a owl:Class;
+	rdfs:label "Terminal"; 
+	rdfs:comment "Terminal" .
+	
+logistics:hasAddress a rdf:Property ;
+	rdfs:label "Address" ;
+	rdfs:comment "The address of a terminal" ;
+	rdfs:domain rail:Terminal ;
+	rdfs:range vcard:adr .
+	
+### Route extensions
+
+logistics:AvailableIn a rdf:Property ;
+	rdfs:isDefinedBy logistics: ;
+	rdfs:label "Available In" ;
+	rdfs:comment "A list of regions or locations the service is available in" ;
+	rdfs:domain logistics:OnDemand  ;
+	rdfs:range geo:SpacialThing .
+	
+### TL-specific Service Level variables
+
+## sub contract handling is done via sub services modeled again in linked usdl
+
+## pre and post setup times
+# no subclassing necessary
+
+logistics:PreSetupTimeVariable a owl:Class;
+	rdfs:subClassOf sla:Variable ;
+	rdfs:isDefinedBy logistics: ;
+	rdfs:label "Pre-departure setup time"; 
+	rdfs:comment "Minimal time before depature when the cargo must be at the location to be transported" .
+	
+logistics:PostSetupTimeVariable a owl:Class;
+	rdfs:subClassOf sla:Variable ;
+	rdfs:label "Post Arrival Setup Time" ;
+	rdfs:comment "Minimal time after arrivel when the cargo is ready for pickup" .
+
+## possible Cargo
+	
+logistics:possibleCargo a rdf:Property;
+        owl:subPropertyOf gr:QualitativeProductOrServiceProperty;
+	rdfs:label "has cargo restrictions";
+        rdfs:comment "Restrictions related to possible cargo";
+        rdfs:domain gr:ProductOrService;
+        rdfs:range gr:QualitativeValue .
+	
+logistics:Cargo a skos:ConceptScheme;
+	rdfs:label "Cargo Taxonomy" ;
+	rdfs:comment "The cargo which can be transported" .
+
+# standarized cargo
+
+logistics:StandarizedCargo a skos:Concept;
+	skos:broader logistics:Cargo ;
+	rdfs:label "Standarized Cargo"; 
+	rdfs:comment "Cargo with standard units and an amount" .
+	
+logistics:ContainerType a skos:ConceptScheme;
+	rdfs:label "Container Type";
+        rdfs:comment "Type of Container Taxonomy".
+	
+logistics:NatureOfCargo a skos:ConceptScheme;
+	rdfs:isDefinedBy logistics: ;
+	rdfs:label "Natures of Cargo Taxonomy";
+        rdfs:comment "A taxonomy of possible natures of cargo which can be transported".
+	
+###TODO: List of CONTAINER_TYPES
+
+##TODO: logistics:TEU
+	
+# custom cargo
+		
+logistics:customCargo a skos:Concept;
+	skos:broader logistics:Cargo ;
+	rdfs:label "Custom Cargo"; 
+	rdfs:comment "Cargo with custom measures" .

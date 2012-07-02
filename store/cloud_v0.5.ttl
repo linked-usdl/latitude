@@ -1,0 +1,326 @@
+@base <http://www.linked-usdl.org/ns/cloud> .
+@prefix : <http://www.linked-usdl.org/ns/cloud#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix dbpedia: <http://dbpedia.org/resource/> .
+@prefix gr: <http://purl.org/goodrelations/v1#> .
+@prefix gn: <http://www.geonames.org/ontology#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix genVoc: <http://www.linked-usdl.org/ns/genvoc#> .
+
+<> a skos:ConceptScheme ; 
+	skos:prefLabel "General service resource/property vocabulary"@en ;
+	skos:altLabel "General vocabulary"@en ;
+	skos:definition "Specification of the vocabulary for cloud services." ;
+	dcterms:contributor [ a foaf:Person ;
+			foaf:name "Florian Heberle" ;
+			foaf:firstName "Florian" ;
+			foaf:lastName "Heberle" ] ;
+	dcterms:created "2012-04-17"^^xsd:date ;
+	dcterms:modified "2012-05-23"^^xsd:date ;
+	owl:versionInfo "004" ;
+	skos:topConceptOf 
+		:CPU ,
+		:DiskStorage ,
+		:MainMemory ,
+		:Traffic , 
+		:IPAddress ,
+		:DataCentre ,
+		:Availability ,
+		:CreditPeriodStart ,
+		:CreditPeriodOffset ,
+		:CreditPeriodMinimum ,
+		:CreditPeriodSlice ,
+		:CreditPeriodEnd ,
+		:AvailabilityExclusion ,
+		:CreditSuspensionReason ,
+		:CreditRequestPeriod ,
+		:FailureReactionTime ,
+		:PreannouncementOfMaintenance ,
+		:RecoveryTimeObjective ,
+		:RecoveryPointObjective .
+
+#____________________________________________________________________________________
+:CPU a rdfs:Class , skos:Concept ;
+	rdfs:subClassOf gr:QuantitativeValue ;
+	skos:prefLabel "CPU" ;
+	skos:related :NumberOfCores .
+
+:hasCPUClockSpeed a owl:Property;
+   rdfs:subPropertyOf gr:quantitativeProductOrServiceProperty;
+   rdfs:domain gr:ProductOrService;
+   rdfs:range gr:QuantitativeValue;
+   rdfs:label "hasCPUClockSpeed"@en;
+   rdfs:comment "The CPU clock speed of the CPUs attached to the maschine."@en.
+
+:hasAmountOfMainMemory a owl:Property;
+   rdfs:subPropertyOf gr:quantitativeProductOrServiceProperty;
+   rdfs:domain gr:ProductOrService;
+   rdfs:range gr:QuantitativeValue;
+   rdfs:label "hasAmountOfMainMemory"@en;
+   rdfs:comment "The amount of main memory for the maschine."@en.
+
+:hasAmountOfStorage a owl:Property;
+   rdfs:subPropertyOf gr:quantitativeProductOrServiceProperty;
+   rdfs:domain gr:ProductOrService;
+   rdfs:range gr:QuantitativeValue;
+   rdfs:label "hasAmountOfStorage"@en;
+   rdfs:comment "The amount of disk storage for the maschine."@en.
+
+:hasAmountOfTransientDiskStorage a owl:Property;
+   rdfs:subPropertyOf gr:quantitativeProductOrServiceProperty;
+   rdfs:domain gr:ProductOrService;
+   rdfs:range gr:QuantitativeValue;
+   rdfs:label "hasAmountfTransientDiskfStorage"@en;
+   rdfs:comment "The amount of disk storage for the maschine."@en.
+
+:hasNumberOfIPAddresses a owl:Property;
+   rdfs:subPropertyOf gr:quantitativeProductOrServiceProperty;
+   rdfs:domain gr:ProductOrService;
+   rdfs:range gr:QuantitativeValue;
+   rdfs:label "hasNumberOfIPAddresses"@en;
+   rdfs:comment "The number of IP addresses."@en.
+
+:NumberOfCores a rdfs:Class , skos:Concept ;
+	rdfs:subClassOf genVoc:Quantity ;
+	skos:prefLabel "Number of cores"@en ;
+	skos:related :CPU .
+	
+#____________________________________________________________________________________
+:DiskStorage a rdfs:Class , skos:Concept ;
+	rdfs:subClassOf gr:QuantitativeValue ;
+	skos:prefLabel "Disk storage"@en ;
+	skos:narrower 
+		:PersistentDiskStorage ,
+		:TransientDiskStorage .
+ 
+:PersistentDiskStorage a rdfs:Class , skos:Concept ;
+	rdfs:subClassOf gr:QuantitativeValue ;
+	skos:prefLabel "Persistent disk storage"@en ;
+	skos:broader :DiskStorage .
+
+:TransientDiskStorage a rdfs:Class , skos:Concept ;
+	rdfs:subClassOf gr:QuantitativeValue ;
+	skos:prefLabel "Transient disk storage"@en ;
+	skos:broader :DiskStorage .
+
+#____________________________________________________________________________________
+:MainMemory a rdfs:Class , skos:Concept ;
+	rdfs:subClassOf gr:QuantitativeValue ;
+	skos:prefLabel "Main memory"@en .
+
+#____________________________________________________________________________________
+:Traffic a rdfs:Class , skos:Concept ;
+	rdfs:subClassOf gr:QuantitativeValue ;
+	skos:prefLabel "Traffic in/out"@en ;
+	skos:narrower
+		:Upstream ,
+		:Downstream .
+
+:Upstream a rdfs:Class , skos:Concept ;
+	rdfs:subClassOf gr:QuantitativeValue ;
+	skos:prefLabel "Upstream"@en ;
+	skos:broader :Traffic .
+
+:Downstream a rdfs:Class , skos:Concept ;
+	rdfs:subClassOf gr:QuantitativeValue ;
+	skos:prefLabel "Downstream"@en ;
+	skos:broader :Traffic .
+
+:hasUpstreamTraffic a owl:Property;
+   rdfs:subPropertyOf gr:quantitativeProductOrServiceProperty;
+   rdfs:domain gr:ProductOrService;
+   rdfs:range gr:QuantitativeValue;
+   rdfs:label "hasUpstreamTraffic"@en;
+   rdfs:comment "The amount of disk storage for the maschine."@en.
+
+:hasDownstreamTraffic a owl:Property;
+   rdfs:subPropertyOf gr:quantitativeProductOrServiceProperty;
+   rdfs:domain gr:ProductOrService;
+   rdfs:range gr:QuantitativeValue;
+   rdfs:label "hasDownstreamTraffic"@en;
+   rdfs:comment "The amount of disk storage for the maschine."@en.
+
+#____________________________________________________________________________________
+:IPAddress a skos:Concept ;
+	skos:prefLabel "IP address"@en ;
+	rdfs:label "IP address"@en ;
+	skos:narrower :PrivateIPAddress ,
+		:PublicIPAddress ,
+		:StaticIPAddress ,
+		:DynamicIPAddress ,
+		:V4IPAddress ,
+		:V6IPAddress .
+
+:PrivateIPAddress a gr:QualitativeValue , skos:Concept ;
+	skos:prefLabel "Private IP address"@en ;
+	rdfs:label "PrivateIPAddress"@en ;
+	skos:broader :IPAddress .
+
+:PublicIPAddress a gr:QualitativeValue , skos:Concept ;
+	skos:prefLabel "Public IP address"@en ;
+	rdfs:prefLabel "Public IP address"@en ;
+	skos:broader :IPAddress .
+
+:StaticIPAddress a gr:QualitativeValue , skos:Concept ;
+	skos:prefLabel "Static IP address"@en ;
+	rdfs:label "Static IP address"@en ;
+	skos:broader :IPAddress .
+
+:DynamicIPAddress a gr:QualitativeValue , skos:Concept ;
+	skos:prefLabel "Dynamic IP address"@en ;
+	rdfs:label "Dynamic IP address"@en ;
+	skos:broader :IPAddress .
+
+:V4IPAddress a gr:QualitativeValue , skos:Concept ;
+	skos:prefLabel "IPv4"@en ;
+	rdfs:label "IPv4"@en ;
+	skos:broader :IPAddress .
+
+:V6IPAddress a gr:QualitativeValue , skos:Concept ;
+	skos:prefLabel "IPv6"@en ;
+	rdfs:label "IPv6"@en ;
+	skos:broader :IPAddress .
+
+:hasIPAddress a owl:Property;
+   rdfs:subPropertyOf gr:qualitativeProductOrServiceProperty;
+   rdfs:domain gr:ProductOrService;
+   rdfs:range gr:QualitativeValue;
+   rdfs:label "hasDownstreamTraffic"@en;
+   rdfs:comment "The amount of disk storage for the maschine."@en.
+
+:IOPerformanceHigh a gr:QualitativeProperty , skos:Concept ;
+	skos:prefLabel "I/O performance category high" ; # What does that mean in numbers?
+	rdfs:label "I/O performance category high" .
+
+:IOPerformanceLow a gr:QualitativeProperty , skos:Concept ;
+	skos:prefLabel "I/O performance category moderate" ; # What does that mean in numbers?
+	rdfs:label "I/O performance category low" .
+
+:IOPerformanceModerate a gr:QualitativeProperty , skos:Concept ;
+	skos:prefLabel "I/O performance category moderate" ; # What does that mean in numbers?
+	rdfs:label "I/O performance category moderate" .
+
+:hasIOPerformance a owl:Property;
+   rdfs:subPropertyOf gr:qualitativeProductOrServiceProperty;
+   rdfs:domain gr:ProductOrService;
+   rdfs:range gr:QualitativeValue;
+   rdfs:label "hasIOPerformance"@en;
+   rdfs:comment "The IO performance addressed in low, medium, high."@en.
+
+#____________________________________________________________________________________
+:DataCentre a rdfs:Class , skos:Concept ;
+	rdfs:subClassOf genVoc:GeoReference ;
+	skos:prefLabel "Data centre"@en ;
+	skos:related :DataCentreTier1 ,
+		:DataCentreTier2 ,
+		:DataCentreTier3 ,
+		:DataCentreTier4 .
+
+:DataCentreTier1 a rdfs:Class , skos:Concept ;
+	rdfs:subClassOf gr:QualitativeValue ;
+	skos:prefLabel "Data centre tier 1"@en ;
+	skos:narrower :DataCentreTier2 .
+
+:DataCentreTier2 a rdfs:Class , skos:Concept ;
+	rdfs:subClassOf gr:QualitativeValue ;
+	skos:prefLabel "Data centre tier 2"@en ;
+	skos:broader :DataCentreTier1 ;
+	skos:narrower :DataCentreTier3 .
+
+:DataCentreTier3 a rdfs:Class , skos:Concept ;
+	rdfs:subClassOf gr:QualitativeValue ;
+	skos:prefLabel "Data centre tier 3"@en ;
+	skos:broader :DataCentreTier2 ;
+	skos:narrower :DataCentreTier4 .
+
+:DataCentreTier4 a rdfs:Class , skos:Concept ;
+	rdfs:subClassOf gr:QualitativeValue ;
+	skos:prefLabel "Data centre tier 4"@en ;
+	skos:broader :DataCentreTier3 .
+
+#____________________________________________________________________________________
+:Availability a rdfs:Class , skos:Concept ;
+	rdfs:subClassOf gr:QuantitativeValue ;
+	skos:prefLabel "Availability"@en .
+
+#____________________________________________________________________________________
+:AvailabilityExclusion a rdfs:Class , skos:Concept ;
+	rdfs:subClassOf gr:QualitativeValue ;
+	skos:prefLabel "Time period excluded from availability"@en .
+
+#____________________________________________________________________________________
+:CreditPeriodStart a rdfs:Class , skos:Concept ;
+	rdfs:subClassOf genVoc:GenericPointInTime ;
+	skos:prefLabel "Abstract point in time when credited period starts"@en ;
+	skos:editorialNote "Use narrower concepts or implement your own."@en ;
+	skos:narrower 
+		:ReportOfDowntime ,
+		:DiscoveryOfDowntime .
+		
+:ReportOfDowntime a rdfs:Class , skos:Concept ;
+	rdfs:subClassOf genVoc:GenericPointInTime ;
+	skos:prefLabel "Point in time when downtime is reported"@en ;
+	skos:broader :CreditPeriodStart .
+
+:DiscoveryOfDowntime a rdfs:Class , skos:Concept ;
+	rdfs:subClassOf genVoc:GenericPointInTime ;
+	skos:prefLabel "Point in time when downtime is discovered"@en ;
+	skos:broader :CreditPeriodStart .
+
+:CreditPeriodOffset a rdfs:Class , skos:Concept ;
+	rdfs:subClassOf gr:QuantitativeValue ;
+	skos:prefLabel "Credit period offset"@en ;
+	skos:broader genVoc:AbsoluteTimePeriod .
+
+:CreditPeriodMinimum a rdfs:Class , skos:Concept ;
+	rdfs:subClassOf gr:QuantitativeValue ;
+	skos:prefLabel "Credit period minimum"@en ;
+	skos:broader genVoc:AbsoluteTimePeriod .
+
+:CreditPeriodSlice a rdfs:Class , skos:Concept ;
+	rdfs:subClassOf gr:QuantitativeValue ;
+	skos:prefLabel "Credit period slice"@en ;
+	skos:broader genVoc:AbsoluteTimePeriod .
+
+:CreditPeriodEnd a rdfs:Class , skos:Concept ;
+	rdfs:subClassOf genVoc:GenericPointInTime ;
+	skos:prefLabel "Abstract point in time when credited period ends"@en ;
+	skos:editorialNote "Use narrower concepts or implement your own."@en ;
+	skos:narrower :EndOfDowntime .
+
+:EndOfDowntime a rdfs:Class , skos:Concept ;
+	rdfs:subClassOf genVoc:GenericPointInTime ;
+	skos:prefLabel "Point in time when service returns to a normal state"@en ;
+	skos:broader :CreditPeriodEnd .
+
+#____________________________________________________________________________________
+:CreditRequestPeriod a rdfs:Class , skos:Concept ;
+	rdfs:subClassOf genVoc:AbsoluteTimePeriod ;
+	skos:prefLabel "Credit request period"@en .
+
+#____________________________________________________________________________________
+:FailureReactionTime a rdfs:Class , skos:Concept ;
+	rdfs:subClassOf genVoc:AbsoluteTimePeriod ;
+	skos:prefLabel "Failure reaction time"@en .
+
+#____________________________________________________________________________________
+:PreannouncementOfMaintenance a rdfs:Class , skos:Concept ;
+	rdfs:subClassOf genVoc:AbsoluteTimePeriod ;
+	skos:prefLabel "Preannouncement of maintenance"@en .
+
+#____________________________________________________________________________________
+:RecoveryTimeObjective a rdfs:Class , skos:Concept ;
+	rdfs:subClassOf genVoc:AbsoluteTimePeriod ;
+	skos:prefLabel "RTO"@en .
+
+#____________________________________________________________________________________
+:RecoveryPointObjective a rdfs:Class , skos:Concept ;
+	rdfs:subClassOf genVoc:AbsoluteTimePeriod ;
+	skos:prefLabel "RPO"@en .
+

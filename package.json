@@ -1,0 +1,15 @@
+{
+ "name": "lattitude",
+ "version": "0.9.0",
+ "dependencies": {
+     "express": "",
+     "url": "",
+     "path": "",
+     "jQuery": "",
+     "jsdom": "",
+     "xmldom": "",
+     "passport": "",
+     "passport-openid": "",
+     "mongodb": ""
+   }
+}
